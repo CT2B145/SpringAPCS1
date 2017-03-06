@@ -25,7 +25,8 @@ public class SpreadsheetLocation implements Location
 
     @Override
     public int getCol()
-    { //FIXME PLEASSEEEE
+    { 
+
         int j = 0;
     	int rowPosition = 0;
     	if(name.charAt(0)>=0){
