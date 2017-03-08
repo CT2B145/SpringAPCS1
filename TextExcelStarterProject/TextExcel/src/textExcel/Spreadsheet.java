@@ -4,11 +4,12 @@ package textExcel;
 
 public class Spreadsheet implements Grid
 {
-	
+	private Cell[][] emptycell;
 	@Override
 	public String processCommand(String command)
 	{
-		Cell empty[][]  = new EmptyCell[12][20];
+		Cell empty[][]  = new EmptyCell[13][21];
+		this.emptycell = empty;
 		return command;
 	}
 
@@ -37,8 +38,20 @@ public class Spreadsheet implements Grid
 	@Override
 	public String getGridText()
 	{
-		
-		return null;
+		String tableholder = "          ";
+	
+	for(int i= 0; i<13; i++){
+		tableholder = tableholder + "\n";
+		for(int j = 0; j<21; j++){
+			tableholder = tableholder + emptycell[i][j]+"|";
 	}
+		for(int j = 0; j<20; j++){
+			int test =  j + 1;
+			emptycell[0][j] = 'a'+ 1;
+	}
+	}
+	
+	return tableholder;
+}
 
 }

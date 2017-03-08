@@ -1,0 +1,51 @@
+package textExcel;
+
+// Update this file with your own code.
+
+public class Spreadsheet implements Grid
+{
+	private Cell[][] emptycell;
+	@Override
+	public String processCommand(String command)
+	{
+		Cell empty[][]  = new EmptyCell[12][20];
+		this.emptycell = empty;
+		return command;
+	}
+
+	@Override
+	public int getRows()
+	{
+		int rowCount = 20;
+		return rowCount;
+	}
+
+	@Override
+	public int getCols()
+	{
+		int colCount = 12;
+		
+		return colCount;
+	}
+
+	@Override
+	public Cell getCell(Location loc)
+	{
+		
+		return null;
+	}
+
+	@Override
+	public String getGridText()
+	{
+		for(int i= 0; i<20; i++){
+			System.out.println();
+			for(int j = 0; j<12; j++){
+				System.out.print(empty[i][j]+"|");
+		}
+		}
+		
+		return empty;
+	}
+
+}
