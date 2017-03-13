@@ -1,16 +1,37 @@
-package textExcel;
 
+package textExcel;
+ 
 // Update this file with your own code.
 
 public class Spreadsheet implements Grid
 {
-	private Cell[][] emptycell;
+	private Cell[][] emptycell = new Cell[20][12];
+	public Spreadsheet(){
+		for( int i = 0; i < emptycell.length; i++){
+			for (int j = 0; j<emptycell[i].length; j++){
+				emptycell[i][j] = new EmptyCell();
+			}
+		}
+	}
 	@Override
 	public String processCommand(String command)
-	{
-		Cell empty[][]  = new EmptyCell[13][21];
-		this.emptycell = empty;
-		return command;
+	{	int row = 0;
+		int col = 0;
+		if(command.charAt(0) == 'c'){
+			return getGridText();
+			}
+		String[] inputcommand = command.split(" ");
+		if (inputcommand[1].equals("=")){
+			String location = inputcommand[0];
+			SpreadsheetLocation cellLocation = new SpreadsheetLocation(location);
+			row = cellLocation.getRow();
+			col = cellLocation.getCol();
+		}
+		if(inputcommand[2].equals("\"")){
+				emptycell[row][col] = new TextCell(inputcommand[2]);
+				return emptycell[row][col].abbreviatedCellText();
+		}
+		return getGridText();
 	}
 
 	@Override
@@ -38,20 +59,25 @@ public class Spreadsheet implements Grid
 	@Override
 	public String getGridText()
 	{
-		String tableholder = "          ";
-	
-	for(int i= 0; i<13; i++){
-		tableholder = tableholder + "\n";
-		for(int j = 0; j<21; j++){
-			tableholder = tableholder + emptycell[i][j]+"|";
+		String tableholder = "";
+		tableholder = tableholder + "   |";
+		char col = 'A';
+		for(int i = 0; i < 12; i++){
+			tableholder = tableholder + ((char)(col)) + "         |";
+			col = (char) (col +  1);
+		}
+		for (int i = 0; i < 20; i++){
+			tableholder = tableholder +  "\n";
+			if(i<9){
+				tableholder = tableholder +  (i+1) + "  |";
+			}else{
+				tableholder = tableholder +  (i+1) + " |"; // remember there is an extra character
+			}
+			for(int j = 0; j<12 ; j++){
+				tableholder = tableholder + emptycell[i][j].abbreviatedCellText() + "|";
+			//
+			}
+		}
+		return tableholder + "\n";
 	}
-		for(int j = 0; j<20; j++){
-			int test =  j + 1;
-			emptycell[0][j] = 'a'+ 1;
-	}
-	}
-	
-	return tableholder;
-}
-
 }

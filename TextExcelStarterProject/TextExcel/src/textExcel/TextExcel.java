@@ -22,6 +22,7 @@ public class TextExcel
 	    	thing.processCommand(i);
 	    	//FIXME CHANGE THE NAME OF THING
 	    }
+	    }
 	    
 	}
-}
+

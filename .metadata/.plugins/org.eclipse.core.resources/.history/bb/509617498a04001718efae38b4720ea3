@@ -1,0 +1,28 @@
+
+
+public class TestingforExcel {
+	static String tableholder = "          ";
+	static String empty[][]  = new String[13][21];
+	public static void main(String args[]){
+		String cookie = getGridText();
+		System.out.println(cookie);
+		
+	}
+	
+	public static String getGridText()
+	{
+	
+		char aa = 'a'-1;
+	for(int i= 0; i<13; i++){
+		aa+=1; 
+		tableholder = tableholder + "\n" + aa;
+		for(int j = 0; j<21; j++){
+			empty[i][j] = "           ";
+			empty[i][0] = "";
+			tableholder = tableholder + empty[i][j]+"|";
+
+		}
+	}
+		return tableholder;
+}
+}
