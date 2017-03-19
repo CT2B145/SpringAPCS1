@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package textExcel;
+
+/**
+ * @author mjpon_000
+ *
+ */
+class FormulaCell extends RealCell {
+
+	/**
+	 * 
+	 */
+	public FormulaCell() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

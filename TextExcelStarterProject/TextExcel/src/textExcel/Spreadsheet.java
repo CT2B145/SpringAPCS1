@@ -1,7 +1,7 @@
 
 package textExcel;
  
-// Update this file with your own code.
+
 
 public class Spreadsheet implements Grid
 {
@@ -17,21 +17,33 @@ public class Spreadsheet implements Grid
 	public String processCommand(String command)
 	{	int row = 0;
 		int col = 0;
-		if(command.charAt(0) == 'c'){
-			return getGridText();
-			}
 		String[] inputcommand = command.split(" ");
 		if (inputcommand[1].equals("=")){
 			String location = inputcommand[0];
 			SpreadsheetLocation cellLocation = new SpreadsheetLocation(location);
 			row = cellLocation.getRow();
 			col = cellLocation.getCol();
+			if (inputcommand[2].substring(inputcommand[2].length()-1).equals("%")){
+				emptycell[row][col] = new PercentCell(inputcommand[2]);
+			}else if(inputcommand[2].charAt(0) == '"' && inputcommand[2].charAt(inputcommand[2].length()-1) == '"'){
+				emptycell[row][col] = new TextCell(inputcommand[2].substring(1, inputcommand[2].length()-1));
+			}else if(inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length()-1) == ')'){
+				emptycell[row][col] = new FormulaCell(inputcommand[2]);
+			}else{
+				emptycell[row][col] = new ValueCell(inputcommand[2]);
+			}
+			return getGridText();
 		}
-		if(inputcommand[2].equals("\"")){
-				emptycell[row][col] = new TextCell(inputcommand[2]);
-				return emptycell[row][col].abbreviatedCellText();
+		if(inputcommand[0].equals("clear") && inputcommand[1].charAt(0) >=0){
+			String test = emptycell[row][col].abbreviatedCellText();
+			return test;
 		}
-		return getGridText();
+
+			
+//			emptycell[row][col] = new TextCell(inputcommand[2]);
+//			return emptycell[row][col].abbreviatedCellText()
+ 
+		return "";
 	}
 
 	@Override
@@ -52,8 +64,7 @@ public class Spreadsheet implements Grid
 	@Override
 	public Cell getCell(Location loc)
 	{
-		
-		return null;
+		return emptycell[loc.getRow()][loc.getCol()];
 	}
 
 	@Override
@@ -74,7 +85,12 @@ public class Spreadsheet implements Grid
 				tableholder = tableholder +  (i+1) + " |"; // remember there is an extra character
 			}
 			for(int j = 0; j<12 ; j++){
-				tableholder = tableholder + emptycell[i][j].abbreviatedCellText() + "|";
+//				if(emptycell[i][j] != null){
+				emptycell[i][j] = "         ";
+					tableholder = tableholder + emptycell[i][j].abbreviatedCellText() + "|";	
+//				}
+//				tableholder = tableholder + emptycell[i][j]+ "|";
+
 			//
 			}
 		}

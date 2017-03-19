@@ -1,0 +1,19 @@
+/**
+ * 
+ */
+package textExcel;
+
+/**
+ * @author mjpon_000
+ *
+ */
+class FormulaCell {
+
+	/**
+	 * 
+	 */
+	public FormulaCell() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

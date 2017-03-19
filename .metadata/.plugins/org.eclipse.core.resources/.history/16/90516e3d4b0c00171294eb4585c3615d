@@ -1,0 +1,9 @@
+package textExcel;
+
+public class ValueCell {
+
+	public ValueCell() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
