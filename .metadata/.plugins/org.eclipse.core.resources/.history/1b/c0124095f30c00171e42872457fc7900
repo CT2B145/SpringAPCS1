@@ -18,40 +18,36 @@ public class Spreadsheet implements Grid
 	{	int row = 0;
 		int col = 0;
 		String[] inputcommand = command.split(" ");
-		if(command.length()-1 >=2){
-			String location = command;
-			SpreadsheetLocation cellLocation = new SpreadsheetLocation(location);
-			row = cellLocation.getRow();
-			col = cellLocation.getCol();
-			return emptycell[row][col].fullCellText();
-		}else if (inputcommand[1].equals("=")&& inputcommand[2].length()>= 0){
+		if (inputcommand[1].equals("=")&& inputcommand.chartAt(0)>= 0){
 			String location = inputcommand[0];
 			SpreadsheetLocation cellLocation = new SpreadsheetLocation(location);
 			row = cellLocation.getRow();
 			col = cellLocation.getCol();
 			if (inputcommand[2].substring(inputcommand[2].length()-1).equals("%")){
 				emptycell[row][col] = new PercentCell(inputcommand[2]);
-				//return getGridText();
+				return getGridText();
 			}else if(inputcommand[2].charAt(0) == '"' && inputcommand[2].charAt(inputcommand[2].length()-1) == '"'){
 				emptycell[row][col] = new TextCell(inputcommand[2].substring(1, inputcommand[2].length()-1));
-			//	return getGridText();
+				return getGridText();
 			}else if(inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length()-1) == ')'){
 				emptycell[row][col] = new FormulaCell(inputcommand[2]);
-				//return getGridText();
+				return getGridText();
 			}else{
 				emptycell[row][col] = new ValueCell(inputcommand[2]);
 				return getGridText();
 			}
-			return getGridText();
-		}else if(inputcommand[0].equals("clear") && inputcommand[1].charAt(0) >=0){
+		}
+		if(inputcommand[0].equals("clear") && inputcommand[1].charAt(0) >=0){
 			String test = emptycell[row][col].abbreviatedCellText();
 			return test;
-		}else if(inputcommand[0].equals("clear") && inputcommand[1].charAt(0) <=0)	{
-			return getGridText();
 		}
 
+			
+//			emptycell[row][col] = new TextCell(inputcommand[2]);
+//			return emptycell[row][col].abbreviatedCellText()
+ 
 		return "";
-}
+	}
 
 	@Override
 	public int getRows()
@@ -95,6 +91,8 @@ public class Spreadsheet implements Grid
 //				if(emptycell[i][j] != null){
 				//emptycell[i][j] = "         ";
 					tableholder = tableholder + emptycell[i][j].abbreviatedCellText() + "|";	
+//				}
+//				tableholder = tableholder + emptycell[i][j]+ "|";
 
 			//
 			}

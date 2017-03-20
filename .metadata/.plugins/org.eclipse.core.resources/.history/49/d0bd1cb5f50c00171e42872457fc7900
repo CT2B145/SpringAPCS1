@@ -11,7 +11,7 @@ public class EmptyCell implements Cell {
 	@Override
 	public String fullCellText() {
 		//
-		return "";
+		return null;
 	}
 	public String printCell(){
 		

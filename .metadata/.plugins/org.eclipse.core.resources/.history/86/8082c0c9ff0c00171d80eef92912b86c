@@ -18,7 +18,7 @@ public class Spreadsheet implements Grid
 	{	int row = 0;
 		int col = 0;
 		String[] inputcommand = command.split(" ");
-		if(command.length()-1 >=2){
+		if(command.length()-1 ==2){
 			String location = command;
 			SpreadsheetLocation cellLocation = new SpreadsheetLocation(location);
 			row = cellLocation.getRow();
