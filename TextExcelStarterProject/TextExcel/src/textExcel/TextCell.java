@@ -5,7 +5,7 @@ public class TextCell implements Cell {
 	private String str;
 	
 	public TextCell(String strInput) {
-		String string = strInput;
+		this.str = strInput;
 	}
 	
 	public String abbreviatedCellText() {
@@ -25,6 +25,6 @@ public class TextCell implements Cell {
 	}
 	
 	public String fullCellText() {
-		return "\"" + str + "\"";
+		return "\"" + this.str + "\"";
 	}
 }

@@ -72,29 +72,29 @@ public class Spreadsheet implements Grid {
 	
 	
 
-	//Method that returns how many rows there are in spreadArr
+	//Method that returns how many rows there are in emptyCell
 	@Override
 	public int getRows() {
 		return 20;
 	}
 
-	//Method that returns how many columns there are in spreadArr
+	//Method that returns how many columns there are in emptyCell
 	@Override
 	public int getCols() {
 		return 12;
 	}
 
-	//Method that accesses the location of any cell in a character + integer format, such as B3
+	//Method that accesses the location of any cell (ex. A4)
 	@Override
 	public Cell getCell(Location loc) {
 		return emptycell[loc.getCol()][loc.getRow()];
 	}
 
-	//Method that returns a string containing the entire sheet grid
+	//Method that returns the entire grid
 	@Override
 	public String getGridText() {
-		String letterRow = "   ";	//is a printout of the first row
-		String modifiedRow = "";			//is a printout of all other rows
+		String letterRow = "   ";	
+		String modifiedRow = "";		
 		for (char c = 'A'; c <= 'L'; c++) {
 			letterRow += "|" + c + "         ";
 		}		
