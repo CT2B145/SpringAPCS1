@@ -2,29 +2,29 @@ package textExcel;
 
 public class TextCell implements Cell {
 
-	private String str;
+	private String string; // a field
 	
 	public TextCell(String strInput) {
-		this.str = strInput;
+		this.string = strInput; //taking the command request from process
 	}
 	
-	public String abbreviatedCellText() {
-		int spaceNum = 10 - this.str.length();
-		String revisedStr = this.str;
-		if (this.str.length() < 10) {
-			for (int i = spaceNum; i > 0; i--) {
-				revisedStr += " ";
+	public String abbreviatedCellText() { //adds the number of spaces needed to keep text aligned
+		int spaceNeeded = 10 - this.string.length();
+		String finalString = this.string;
+		if (this.string.length() < 10) {
+			for (int i = 0; i < spaceNeeded; i++) {
+				finalString  = finalString +  " ";
 			}
-			return revisedStr;
-		} else if (this.str.length() == 10){
-			return this.str;
+			return finalString;
+		} else if (this.string.length() == 10){
+			return this.string;
 		} else {
-			revisedStr = this.str.substring(0, 10);
-			return revisedStr;
+			finalString = this.string.substring(0, 10);
+			return finalString;
 		}
 	}
 	
-	public String fullCellText() {
-		return "\"" + this.str + "\"";
+	public String fullCellText() { // only used for GetCell, this returns on the string
+		return "\"" + this.string + "\"";
 	}
 }

@@ -10,15 +10,12 @@ public class EmptyCell implements Cell {
 		abbreviatedCellText();
 	}
 	
-	public String abbreviatedCellText() {
+	public String abbreviatedCellText() { // 10 spaces needed to fill the cell
 		return "          ";
 	}
 	
-	public String fullCellText() {
+	public String fullCellText() { //returns this if cell is blank
 		return "";
 	}
 	
-	public String printCell() {
-		return "";
-	}
 }

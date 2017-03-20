@@ -7,7 +7,7 @@ private String cellText;
 		this.cellText=text; 
 	}
 	@Override
-	public String abbreviatedCellText() {
+	public String abbreviatedCellText() { //adds the number of spaces needed to keep text aligned
 		String returnStr = cellText;
 		int cellValueLength = cellText.length();
 		if (cellValueLength < 10){
@@ -24,10 +24,10 @@ private String cellText;
 	}
 
 	@Override
-	public String fullCellText() {
+	public String fullCellText() { //used for GetCell only, gives quotes as well
 		return "\"" + cellText + "\"";
 	}
-	public double getDoubleValue() {
+	public double getDoubleValue() { //extracts the numbers from the cell into a double format
 		double num = Double.parseDouble(this.cellText);
 		return num;
 	}

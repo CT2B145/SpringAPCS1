@@ -12,7 +12,7 @@ public class TextExcel {
 		Scanner input = new Scanner(System.in);
 		command = input.nextLine();
 		System.out.println(spread.processCommand(command));
-		
+		// loops until command quit is requested
 		while (!command.equalsIgnoreCase("quit")) {
 			command = input.nextLine();
 		    System.out.println(spread.processCommand(command));

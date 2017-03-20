@@ -18,6 +18,10 @@ public class Spreadsheet implements Grid {
 	@Override
 	// Method that takes in the command and sends it to the proper class to be processed. 
 	public String processCommand(String command) {
+//		command = command.trim();
+//		if (command.equals("")) {
+//			return "";
+//		}
 		String[] inputcommand = command.split(" ", 3); //Splits this string around matches of the given regular expression. 
 		//public String[] split(String regex,  int limit(which is 3, MAX SPACES))
 		if (command.length() <= 3) { // Command is less than 3 or less characters, its got to be an inspection command
