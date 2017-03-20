@@ -1,31 +1,30 @@
 package textExcel;
 
 public class TextCell implements Cell {
+
+	private String str;
 	
-	private String cellText;
-	
-	public TextCell (String text){
-		cellText = text.substring(1, text.length()-1); 
+	public TextCell(String strInput) {
+		String string = strInput;
 	}
-	@Override
+	
 	public String abbreviatedCellText() {
-		String returnStr = cellText;
-		int cellValueLength = cellText.length();
-		if (cellValueLength < 10){
-			while (returnStr.length() < 10){
-				returnStr += " ";
+		int spaceNum = 10 - this.str.length();
+		String revisedStr = this.str;
+		if (this.str.length() < 10) {
+			for (int i = spaceNum; i > 0; i--) {
+				revisedStr += " ";
 			}
-			return returnStr;
-		}else if(cellValueLength > 10){
-			returnStr = returnStr.substring(0, 10);
-			return returnStr;
-		}else{
-			return cellText;
+			return revisedStr;
+		} else if (this.str.length() == 10){
+			return this.str;
+		} else {
+			revisedStr = this.str.substring(0, 10);
+			return revisedStr;
 		}
 	}
-
-	@Override
+	
 	public String fullCellText() {
-		return "\"" + cellText + "\"";
+		return "\"" + str + "\"";
 	}
 }

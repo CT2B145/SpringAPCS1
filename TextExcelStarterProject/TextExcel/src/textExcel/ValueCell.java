@@ -1,26 +1,21 @@
 package textExcel;
 
-public class ValueCell extends RealCell {
-
-	private double valueDoub;
-	public ValueCell (String enteredVal){
-		super (enteredVal);
-		valueDoub = Double.parseDouble(super.fullCellText());		
+public class ValueCell extends RealCell implements Cell {
+	
+	public ValueCell(String value) {
+		super(value);
 	}
-
-	@Override
+	
 	public String abbreviatedCellText() {
 		return super.abbreviatedCellText();
 	}
-
-	@Override
+	
 	public String fullCellText() {
-		// TODO Auto-generated method stub
-		return valueDoub + "";
+		return super.fullCellText();
 	}
 	
-	public double getDoubleValue(){
-		return valueDoub;
+	@Override
+	public double getDoubleValue() {
+		return super.getDoubleValue();
 	}
-
 }

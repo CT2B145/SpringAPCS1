@@ -1,6 +1,6 @@
 package textExcel;
 
-public class FormulaCell extends RealCell{
+public class FormulaCell extends RealCell implements Cell {
 
 	@Override
 	public String abbreviatedCellText() {

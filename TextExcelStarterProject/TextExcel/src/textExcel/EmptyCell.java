@@ -1,24 +1,24 @@
 package textExcel;
 
 public class EmptyCell implements Cell {
-
-	@Override
-	public String abbreviatedCellText() {
-		String text = "          ";
-		return text;
+	
+	private String value;
+	
+	//Constructor for EmptyCell class
+	public EmptyCell() {
+		this.value = fullCellText();
+		abbreviatedCellText();
 	}
-
-	@Override
+	
+	public String abbreviatedCellText() {
+		return "          ";
+	}
+	
 	public String fullCellText() {
-		//
 		return "";
 	}
-	public String printCell(){
-		
-		return null;
+	
+	public String printCell() {
+		return "";
 	}
-	public EmptyCell(){
-		
-	}
-
 }

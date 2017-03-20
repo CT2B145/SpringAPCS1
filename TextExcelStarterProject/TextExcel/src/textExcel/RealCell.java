@@ -27,4 +27,8 @@ private String cellText;
 	public String fullCellText() {
 		return "\"" + cellText + "\"";
 	}
+	public double getDoubleValue() {
+		double num = Double.parseDouble(this.cellText);
+		return num;
+	}
 }

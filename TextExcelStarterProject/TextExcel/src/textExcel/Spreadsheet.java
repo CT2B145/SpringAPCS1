@@ -1,104 +1,116 @@
-
 package textExcel;
- 
+import java.util.*;
 
-
-public class Spreadsheet implements Grid
-{
-	private Cell[][] emptycell = new Cell[20][12];
-	public Spreadsheet(){
-		for( int i = 0; i < emptycell.length; i++){
-			for (int j = 0; j<emptycell[i].length; j++){
+public class Spreadsheet implements Grid {
+	//Initializes a the array to store the needed text in the Excel Tabla.
+	private Cell[][] emptycell = new Cell[12][20];
+	
+	//Constructor for Spreadsheet class
+	public Spreadsheet() {
+		for (int i = 0; i < emptycell.length; i++) {
+			for (int j = 0; j < emptycell[i].length; j++) {
 				emptycell[i][j] = new EmptyCell();
 			}
 		}
 	}
+	
+
 	@Override
-	public String processCommand(String command)
-	{	int row = 0;
-		int col = 0;
-		String[] inputcommand = command.split(" ");
-		if(command.length()-1 >=2){
-			String location = command;
-			SpreadsheetLocation cellLocation = new SpreadsheetLocation(location);
-			row = cellLocation.getRow();
-			col = cellLocation.getCol();
-			return emptycell[row][col].fullCellText();
-		}else if (inputcommand[1].equals("=")&& inputcommand[2].length()>= 0){
-			String location = inputcommand[0];
-			SpreadsheetLocation cellLocation = new SpreadsheetLocation(location);
-			row = cellLocation.getRow();
-			col = cellLocation.getCol();
-			if (inputcommand[2].substring(inputcommand[2].length()-1).equals("%")){
-				emptycell[row][col] = new PercentCell(inputcommand[2]);
-				//return getGridText();
-			}else if(inputcommand[2].charAt(0) == '"' && inputcommand[2].charAt(inputcommand[2].length()-1) == '"'){
-				emptycell[row][col] = new TextCell(inputcommand[2].substring(1, inputcommand[2].length()-1));
-			//	return getGridText();
-			}else if(inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length()-1) == ')'){
-				emptycell[row][col] = new FormulaCell(inputcommand[2]);
-				//return getGridText();
-			}else{
-				emptycell[row][col] = new ValueCell(inputcommand[2]);
+	// Method that takes in the command and sends it to the proper class to be processed. 
+	public String processCommand(String command) {
+		String[] inputcommand = command.split(" ", 3); //Splits this string around matches of the given regular expression. 
+		//public String[] split(String regex,  int limit(which is 3, MAX SPACES))
+		if (command.length() <= 3) { // Command is less than 3 or less characters, its got to be an inspection command
+			SpreadsheetLocation location = new SpreadsheetLocation(command);	
+			return getCell(location).fullCellText();
+			 //represents any other command that is can be inputted
+		}else if (inputcommand.length > 1) { 
+			if (inputcommand[1].equals("=")) {
+				SpreadsheetLocation location1 = new SpreadsheetLocation(inputcommand[0]);
+				int row = location1.getRow();
+				int col = location1.getCol();			
+					// Sends to TextCell (checkpoint 2)
+				if (inputcommand[2].charAt(0) == '"' && inputcommand[2].charAt(inputcommand[2].length() - 1) == '"') {
+					emptycell[col][row] = new TextCell(inputcommand[2].substring(1, inputcommand[2].length() - 1));
+					// Processes Percentages (checks for percentage before looking for decimals)
+				} else if (inputcommand[2].substring(inputcommand[2].length() - 1).equals("%")) {
+					emptycell[col][row]= new PercentCell(inputcommand[2]);
+					// Processes ValueCell (any decimal number)
+				} else if (inputcommand[2].indexOf(".") > 0) {
+					emptycell[col][row] = new ValueCell(inputcommand[2]);
+				// If the command is not reconizged in any way....
+				} else {
+					throw new IllegalArgumentException("ERROR: Invalid Command");
+				}
 				return getGridText();
-			}
-			return getGridText();
-		}else if(inputcommand[0].equals("clear") && inputcommand[1].charAt(0) >=0){
-			String test = emptycell[row][col].abbreviatedCellText();
-			return test;
-		}else if(inputcommand[0].equals("clear") && inputcommand[1].charAt(0) <=0)	{
-			return getGridText();
-		}
-
-		return "";
-}
-
-	@Override
-	public int getRows()
-	{
-		int rowCount = 20;
-		return rowCount;
-	}
-
-	@Override
-	public int getCols()
-	{
-		int colCount = 12;
-		
-		return colCount;
-	}
-
-	@Override
-	public Cell getCell(Location loc)
-	{
-		return emptycell[loc.getRow()][loc.getCol()];
-	}
-
-	@Override
-	public String getGridText()
-	{
-		String tableholder = "";
-		tableholder = tableholder + "   |";
-		char col = 'A';
-		for(int i = 0; i < 12; i++){
-			tableholder = tableholder + ((char)(col)) + "         |";
-			col = (char) (col +  1);
-		}
-		for (int i = 0; i < 20; i++){
-			tableholder = tableholder +  "\n";
-			if(i<9){
-				tableholder = tableholder +  (i+1) + "  |";
+		//This clear works only if there is spacing(ex. , so it will only clear one cell instead of the entire thing
+			}else if (inputcommand[0].equalsIgnoreCase("clear")) {
+				for (int i = 1; i < inputcommand.length; i++) {
+					SpreadsheetLocation gridLoc = new SpreadsheetLocation(inputcommand[i]);
+					int rowNum = gridLoc.getRow();
+					int colNum = gridLoc.getCol();
+					emptycell[colNum][gridLoc.getRow()] = new EmptyCell();
+				}
+				return getGridText();
+			//If command is blank
 			}else{
-				tableholder = tableholder +  (i+1) + " |"; // remember there is an extra character
-			}
-			for(int j = 0; j<12 ; j++){
-//				if(emptycell[i][j] != null){
-				//emptycell[i][j] = "         ";
-					tableholder = tableholder + emptycell[i][j].abbreviatedCellText() + "|";	
-
-			//
+				throw new IllegalArgumentException("ERROR: Where are thou the command?");
 			}
 		}
-		return tableholder + "\n";
+		if(command.equalsIgnoreCase("clear")) { // clears the entire cell 
+				for (int i = 0; i < emptycell.length; i++) {
+					for (int j = 0; j < emptycell[i].length; j++) {
+						emptycell[i][j] = new EmptyCell();
+						}
+				}
+				return getGridText();
+		}else{
+			// if something other than the other clear commands happen...
+			throw new IllegalArgumentException("Error: Something wrong with clear command buddy.");
+		}
+	}
+	
+	
+
+	//Method that returns how many rows there are in spreadArr
+	@Override
+	public int getRows() {
+		return 20;
+	}
+
+	//Method that returns how many columns there are in spreadArr
+	@Override
+	public int getCols() {
+		return 12;
+	}
+
+	//Method that accesses the location of any cell in a character + integer format, such as B3
+	@Override
+	public Cell getCell(Location loc) {
+		return emptycell[loc.getCol()][loc.getRow()];
+	}
+
+	//Method that returns a string containing the entire sheet grid
+	@Override
+	public String getGridText() {
+		String letterRow = "   ";	//is a printout of the first row
+		String modifiedRow = "";			//is a printout of all other rows
+		for (char c = 'A'; c <= 'L'; c++) {
+			letterRow += "|" + c + "         ";
+		}		
+		letterRow  = letterRow + "|";
+		for (int j = 0; j < 20; j++) {
+			if (j + 1 < 10) {
+				modifiedRow += (j + 1) + "  ";
+			} else  {
+				modifiedRow += (j + 1) + " ";
+			}
+			for (int k = 0; k < 12; k++) {
+				modifiedRow += "|" + emptycell[k][j].abbreviatedCellText();
+			}
+			modifiedRow += "|\n";
+		}		
+		return letterRow + "\n" + modifiedRow;
 	}
 }
+		
