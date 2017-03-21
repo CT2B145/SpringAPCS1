@@ -99,18 +99,18 @@ public class Spreadsheet implements Grid {
 	public String getGridText() {
 		String letterRow = "   ";	
 		String modifiedRow = "";		
-		for (char c = 'A'; c <= 'L'; c++) {
+		for (char c = 'A'; c <= 'L'; c++) { // the notorious ascii in use here
 			letterRow += "|" + c + "         ";
 		}		
 		letterRow  = letterRow + "|";
-		for (int j = 0; j < 20; j++) {
-			if (j + 1 < 10) {
-				modifiedRow += (j + 1) + "  ";
+		for (int i = 0; i < 20; i++) {
+			if (i + 1 < 10) {
+				modifiedRow += (i + 1) + "  ";
 			} else  {
-				modifiedRow += (j + 1) + " ";
+				modifiedRow += (i + 1) + " ";
 			}
 			for (int k = 0; k < 12; k++) {
-				modifiedRow += "|" + emptycell[k][j].abbreviatedCellText();
+				modifiedRow += "|" + emptycell[k][i].abbreviatedCellText();
 			}
 			modifiedRow += "|\n";
 		}		
