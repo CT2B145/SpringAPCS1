@@ -24,8 +24,8 @@ private String cellText;
 	}
 
 	@Override
-	public String fullCellText() { //used for GetCell only, gives quotes as well
-		return "\"" + cellText + "\"";
+	public String fullCellText() { //used for GetCell only (no quotes needed, since this is a superclass)
+		return cellText ;
 	}
 	public double getDoubleValue() { //extracts the numbers from the cell into a double format
 		double num = Double.parseDouble(this.cellText);

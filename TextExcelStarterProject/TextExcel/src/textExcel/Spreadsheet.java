@@ -42,6 +42,9 @@ public class Spreadsheet implements Grid {
 					// Processes ValueCell (any decimal number)
 				} else if (inputcommand[2].indexOf(".") > 0) {
 					emptycell[col][row] = new ValueCell(inputcommand[2]);
+					// Processes to ValueCell if a regular string or non decimal is assigned
+				} else if (inputcommand[2] != null){ 
+					emptycell[col][row] = new ValueCell(inputcommand[2]);
 				// If the command is not reconizged in any way....
 				} else {
 					throw new IllegalArgumentException("ERROR: Invalid Command");

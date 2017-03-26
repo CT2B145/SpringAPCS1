@@ -25,6 +25,7 @@ public class TextCell implements Cell {
 	}
 	
 	public String fullCellText() { // only used for GetCell, this returns on the string
+
 		return "\"" + this.string + "\"";
 	}
 }

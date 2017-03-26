@@ -26,7 +26,7 @@ public class PercentCell extends RealCell implements Cell{
 			roundfrac = roundfrac.substring(0, 10);
 			return roundfrac;
 		}else{
-			return roundfrac;
+			return roundfrac +"       ";
 		}
 	}
 
