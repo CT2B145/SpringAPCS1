@@ -42,6 +42,8 @@ public class Spreadsheet implements Grid {
 					// Processes ValueCell (any decimal number)
 				} else if (inputcommand[2].indexOf(".") > 0) {
 					emptycell[col][row] = new ValueCell(inputcommand[2]);
+				} else if (inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length() - 1) == ')') {
+					emptycell[col][row]= new FormulaCell(inputcommand[2]);	
 					// Processes to ValueCell if a regular string or non decimal is assigned
 				} else if (inputcommand[2] != null){ 
 					emptycell[col][row] = new ValueCell(inputcommand[2]);
@@ -61,6 +63,7 @@ public class Spreadsheet implements Grid {
 				return getGridText();
 			//If command is blank
 			}else{
+			
 				throw new IllegalArgumentException("ERROR: Where are thou the command?");
 			}
 		}

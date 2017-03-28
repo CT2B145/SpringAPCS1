@@ -1,19 +1,37 @@
 package textExcel;
 
-public class FormulaCell extends RealCell implements Cell {
+public class FormulaCell extends RealCell{
+	private String formanswer;
+	// Constructor for the FormulaCell class
+	public FormulaCell (String enteredForm){
+		super(enteredForm);
+		this.formanswer = enteredForm;
+	}
 
 	@Override
 	public String abbreviatedCellText() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String[] fracEquationHolder = this.formanswer.split(" ",this.formanswer.length()); // holds the fractions and operator
+		String[] operators = new String[100];
+		String[] operand = new String[100];
+		for( int i =0; i <= (this.formanswer.length()-2); i++){
+			operators[i] = fracEquationHolder[i+2];
+		}
+		for(int i =0; i <= (this.formanswer.length()-2); i+=2){
+			operators[i] = fracEquationHolder[i];
+		}
+		for(int i =0; i <= (this.formanswer.length()-2); i+=2){)
+	
+		return "";
 	}
 
 	@Override
 	public String fullCellText() {
 		return super.fullCellText();
 	}
-	
-	public FormulaCell (String enteredForm){
-		super(enteredForm);
+	public double getDoubleValue (){ // truncates it
+		return Double.parseDouble(this.input.substring(0, this.input.length()-1))/100;
+		
 	}
+	
 }
