@@ -11,18 +11,29 @@ public class FormulaCell extends RealCell{
 	@Override
 	public String abbreviatedCellText() {
 		
-		String[] fracEquationHolder = this.formanswer.split(" ",this.formanswer.length()); // holds the fractions and operator
-		String[] operators = new String[100];
-		String[] operand = new String[100];
-		for( int i =0; i <= (this.formanswer.length()-2); i++){
-			operators[i] = fracEquationHolder[i+2];
-		}
-		for(int i =0; i <= (this.formanswer.length()-2); i+=2){
-			operators[i] = fracEquationHolder[i];
-		}
-		for(int i =0; i <= (this.formanswer.length()-2); i+=2){)
-	
-		return "";
+		String removepart = this.formanswer.substring(2,this.formanswer.length()-2);
+		 String[] fracEquationHolder = removepart.split(" ",removepart.length()); // holds the fractions and operator
+	        String operators = "";
+	        double operand;
+	        double operand2;
+	        double answer = Double.parseDouble(fracEquationHolder[0]);
+
+	        for(int i =0; i <= (fracEquationHolder.length-2); i+=2){
+	            operators = fracEquationHolder[i+1];
+	            operand = Double.parseDouble(fracEquationHolder[i]);
+	            operand2 = Double.parseDouble(fracEquationHolder[i+2]);
+	            if(operators.indexOf("+")>=0){
+	                answer += operand2;
+	            }else if(operators.indexOf("-")>=0){
+	                answer -= operand2;
+	            }else if(operators.indexOf("*")>=0){
+	                answer *=  operand2;
+	            }else if(operators.indexOf("/")>=0){
+	                answer /=   operand2;
+	            }else
+	                return(answer+"      "); 
+	        }
+	        return (answer+"      "); 
 	}
 
 	@Override
@@ -30,7 +41,7 @@ public class FormulaCell extends RealCell{
 		return super.fullCellText();
 	}
 	public double getDoubleValue (){ // truncates it
-		return Double.parseDouble(this.input.substring(0, this.input.length()-1))/100;
+		return Double.parseDouble(this.formanswer.substring(0, this.formanswer.length()-1))/100;
 		
 	}
 	

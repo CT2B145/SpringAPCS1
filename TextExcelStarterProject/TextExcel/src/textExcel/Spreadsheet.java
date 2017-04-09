@@ -39,11 +39,14 @@ public class Spreadsheet implements Grid {
 					// Processes Percentages (checks for percentage before looking for decimals)
 				} else if (inputcommand[2].substring(inputcommand[2].length() - 1).equals("%")) {
 					emptycell[col][row]= new PercentCell(inputcommand[2]);
+					// Handles formula cells
+				} else if (inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length() - 1) == ')') {
+					emptycell[col][row]= new FormulaCell(inputcommand[2].substring(2, inputcommand[2].length()-2));	
+					emptycell[col][row]= new FormulaCell(inputcommand[2]);	
+
 					// Processes ValueCell (any decimal number)
 				} else if (inputcommand[2].indexOf(".") > 0) {
 					emptycell[col][row] = new ValueCell(inputcommand[2]);
-				} else if (inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length() - 1) == ')') {
-					emptycell[col][row]= new FormulaCell(inputcommand[2]);	
 					// Processes to ValueCell if a regular string or non decimal is assigned
 				} else if (inputcommand[2] != null){ 
 					emptycell[col][row] = new ValueCell(inputcommand[2]);

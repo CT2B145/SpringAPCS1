@@ -1,0 +1,43 @@
+package textExcel;
+
+public class FormulaCell extends RealCell implements Cell{
+	private String formanswer;
+	// Constructor for the FormulaCell class
+	public FormulaCell (String enteredForm){
+		super(enteredForm);
+		this.formanswer = enteredForm;
+	}
+
+	@Override
+	public String abbreviatedCellText() {
+		String formula = this.formanswer.substring(2,this.formanswer.length()-2);
+		String[] formulaDiv = formula.split(" ");
+		double num;
+		double result = Double.parseDouble(formulaDiv[0]);
+		for (int i = 2; i < formulaDiv.length; i+=2) {
+			num = Double.parseDouble(formulaDiv[i]);
+				if (formulaDiv[i - 1].equals("+")) {
+					result += num;
+				} else if (formulaDiv[i - 1].equals("-")) {
+					result -= num;
+				} else if (formulaDiv[i - 1].equals("/")) {
+					result /= num;
+				} else if (formulaDiv[i - 1].equals("*")) {
+					result *= num;
+				} else {
+					throw new IllegalArgumentException("Please enter a valid operator");
+				}
+		}
+		return (result + "");
+	}
+
+	@Override
+	public String fullCellText() {
+		return super.fullCellText();
+	}
+	public double getDoubleValue (){ // truncates it
+		return Double.parseDouble(this.formanswer.substring(0, this.formanswer.length()-1))/100;
+		
+	}
+	
+}
