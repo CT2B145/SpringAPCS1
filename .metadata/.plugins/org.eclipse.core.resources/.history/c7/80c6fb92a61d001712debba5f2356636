@@ -11,14 +11,7 @@ public class FormulaCell extends RealCell{
 	@Override
 	public String abbreviatedCellText() {
 		
-		
-		if(this.formanswer.indexOf("( SUM")>= 0){ //for SUM
-			return"";
-		} else if(this.formanswer.indexOf("(")>= 0){ //for adding regular numbers
-//			SpreadsheetLocation location1 = new SpreadsheetLocation(inputcommand[0]);
-//			int row = location1.getRow();
-//			int col = location1.getCol();
-			String removepart = this.formanswer.substring(2,this.formanswer.length()-2);
+		String removepart = this.formanswer.substring(2,this.formanswer.length()-2);
 		 String[] fracEquationHolder = removepart.split(" ",removepart.length()); // holds the fractions and operator
 	        String operators = "";
 	        double operand;
@@ -40,22 +33,7 @@ public class FormulaCell extends RealCell{
 	            }else
 	                return(answer+"      "); 
 	        }
-	        String answer1 = answer +"";
-	        int cellValueLength = answer1.length();
-			if (cellValueLength < 10){
-				while (answer1.length() < 10){
-					answer1 += " ";
-				}
-				return answer1;
-			} else if (cellValueLength > 10){
-				answer1 = answer1.substring(0, 10);
-				return answer1;
-			}else{
-				return answer1;
-			}
-			
-		}// OUT OF THE MAIN IF
-		return"";
+	        return (answer+"      "); 
 	}
 
 	@Override

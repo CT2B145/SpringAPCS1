@@ -41,7 +41,7 @@ public class Spreadsheet implements Grid {
 					emptycell[col][row]= new PercentCell(inputcommand[2]);
 					// Handles formula cells
 				} else if (inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length() - 1) == ')') {
-					//emptycell[col][row]= new FormulaCell(inputcommand[2].substring(2, inputcommand[2].length()-2));	
+					emptycell[col][row]= new FormulaCell(inputcommand[2].substring(2, inputcommand[2].length()-2));	
 					emptycell[col][row]= new FormulaCell(inputcommand[2]);	
 
 					// Processes ValueCell (any decimal number)

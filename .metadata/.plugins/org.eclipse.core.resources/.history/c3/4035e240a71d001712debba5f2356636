@@ -12,13 +12,10 @@ public class FormulaCell extends RealCell{
 	public String abbreviatedCellText() {
 		
 		
-		if(this.formanswer.indexOf("( SUM")>= 0){ //for SUM
-			return"";
-		} else if(this.formanswer.indexOf("(")>= 0){ //for adding regular numbers
-//			SpreadsheetLocation location1 = new SpreadsheetLocation(inputcommand[0]);
-//			int row = location1.getRow();
-//			int col = location1.getCol();
-			String removepart = this.formanswer.substring(2,this.formanswer.length()-2);
+		if(this.formanswer.charAt(0)>= 65){
+		return this.formanswer;
+		}
+		String removepart = this.formanswer.substring(2,this.formanswer.length()-2);
 		 String[] fracEquationHolder = removepart.split(" ",removepart.length()); // holds the fractions and operator
 	        String operators = "";
 	        double operand;
@@ -53,10 +50,8 @@ public class FormulaCell extends RealCell{
 			}else{
 				return answer1;
 			}
-			
-		}// OUT OF THE MAIN IF
-		return"";
-	}
+		} 
+	
 
 	@Override
 	public String fullCellText() {
