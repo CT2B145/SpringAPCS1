@@ -22,22 +22,22 @@ public class FormulaCell extends RealCell{
 	        String operators = "";
 	        double operand;
 	        double operand2;
-	        boolean hasUppercase = !fractionEquationHolder[0].substring(1).equals(fractionEquationHolder[0].toLowerCase());
+	        boolean hasUppercase = !fractionEquationHolder[0].equals(fractionEquationHolder[0].toLowerCase());
 	        // object creation to reference sprdlocation to particular cell
-	       // SpreadsheetLocation location1 = new SpreadsheetLocation(fractionEquationHolder[0]);
-	      //  Spreadsheet getCell = new Spreadsheet();
+	        SpreadsheetLocation location1 = new SpreadsheetLocation(fractionEquationHolder[0]);
+	        Spreadsheet getCell = new Spreadsheet();
 	        //if(fractionEquationHolder[0].matches(".*[a-zA-Z].*")){
-//	        if(hasUppercase){
-//	        fractionEquationHolder[0] = getCell.getCell(location1).fullCellText();
-//	        }
+	        if(hasUppercase){
+	        fractionEquationHolder[0] = getCell.getCell(location1).fullCellText();
+	        }
 	        double answer = Double.parseDouble(fracEquationHolder[0]);
-//	        // loop to do given math
+	        // loop to do given math
 	        for(int i =0; i <= (fracEquationHolder.length-2); i+=2){
-//	        	hasUppercase = !fractionEquationHolder[i].substring(1).equals(fractionEquationHolder[i].toLowerCase());
-//		        //if(fractionEquationHolder[i+2].matches(".*[a-zA-Z]+.*")){
-//	        	if(hasUppercase){
-//			        fractionEquationHolder[i+2] = getCell.getCell(location1).fullCellText();
-//			        }
+	        	hasUppercase = !fractionEquationHolder[i].equals(fractionEquationHolder[i].toLowerCase());
+		        //if(fractionEquationHolder[i+2].matches(".*[a-zA-Z]+.*")){
+	        	if(hasUppercase){
+			        fractionEquationHolder[i+2] = getCell.getCell(location1).fullCellText();
+			        }
 	            operators = fracEquationHolder[i+1];
 	            operand = Double.parseDouble(fracEquationHolder[i]);
 	            operand2 = Double.parseDouble(fracEquationHolder[i+2]);

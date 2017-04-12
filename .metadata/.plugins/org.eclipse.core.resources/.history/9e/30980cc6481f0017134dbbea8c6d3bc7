@@ -25,7 +25,7 @@ public class FormulaCell extends RealCell{
 	        boolean hasUppercase = !fractionEquationHolder[0].substring(1).equals(fractionEquationHolder[0].toLowerCase());
 	        // object creation to reference sprdlocation to particular cell
 	       // SpreadsheetLocation location1 = new SpreadsheetLocation(fractionEquationHolder[0]);
-	      //  Spreadsheet getCell = new Spreadsheet();
+	        Spreadsheet getCell = new Spreadsheet();
 	        //if(fractionEquationHolder[0].matches(".*[a-zA-Z].*")){
 //	        if(hasUppercase){
 //	        fractionEquationHolder[0] = getCell.getCell(location1).fullCellText();
