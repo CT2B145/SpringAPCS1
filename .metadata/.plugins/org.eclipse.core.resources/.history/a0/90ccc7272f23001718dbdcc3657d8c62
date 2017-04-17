@@ -17,7 +17,7 @@ public class FormulaCell extends RealCell{
 		this.formanswer = enteredForm;		
 		sprdsheet = emptycell;
 // The question that I cannot figure out, the object array changes to string, but the interior does not... WHY???
-		stringArray = Arrays.copyOf(emptycell, emptycell.length, String[][].class);
+		//stringArray = Arrays.copyOf(emptycell, emptycell.length, String[][].class);
 		//stringArray = emptycell.toArray(new String[][]);
 	}
 		@Override
@@ -41,11 +41,11 @@ public class FormulaCell extends RealCell{
 	        for(int i =0; i <= (fracEquationHolder.length-2); i+=2){
 	        	//This below in theory was supposed to handle "A1", etc. For some reason got an Arrays casting error?
 	    //================================================================================
-				char charCell = fracEquationHolder[i].charAt(i);	
+//				char charCell = cellText.charAt(i);	
 ////			        Spreadsheet getCell1 = new Spreadsheet();
-	        	if ((charCell >= 'a'&& charCell <= 'z') || (charCell >= 'A'&& charCell <= 'Z')){
-	        		 fracEquationHolder[i] = getCell(fracEquationHolder[i]);
-	        	}
+//	        	if ((charCell >= 'a'&& charCell <= 'z') || (charCell >= 'A'&& charCell <= 'Z')){
+//	        		 fracEquationHolder[i] = getCell(fracEquationHolder[i]);
+//	        	}
 	        	
 	        	//Goal: to make it less lines as possible. But completely backfired.
 //====================================================================================================
