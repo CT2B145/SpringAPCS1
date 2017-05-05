@@ -21,30 +21,32 @@ public String abbreviatedCellText() {
 		} else if(this.formanswer.indexOf("( SUM")>= 0){
 			return"";
 		} else if(this.formanswer.indexOf("( AVG")>= 0){
-			int next = 0;
-			String firstNum = fracEquationHolder[1].toUpperCase().substring(0, fracEquationHolder[1].indexOf('-'));
-			String endingNum = fracEquationHolder[1].toUpperCase().substring(fracEquationHolder[1].indexOf('-') + 1);
-			String placeHolder = firstNum;
-			while(!(placeHolder.equals(endingNum))){
+			
+			int counter = 0;
+			String beginning = fracEquationHolder[1].toUpperCase().substring(0, fracEquationHolder[1].indexOf('-'));
+			String ending = fracEquationHolder[1].toUpperCase().substring(fracEquationHolder[1].indexOf('-') + 1);
+			String placeHolder = beginning;
+			while(!(placeHolder.equals(ending))){
 				SpreadsheetLocation loc = new SpreadsheetLocation(placeHolder);
 				//change the column when its the same row
-				if(placeHolder.substring(1).equals(endingNum.substring(1))){
+				if(placeHolder.substring(1).equals(ending.substring(1))){
 					//changes the letter by one if the rows are the same
-					placeHolder = ((char)(placeHolder.charAt(0) + 1)) + endingNum.substring(1);
-					if(sprdsheet[loc.getRow()][loc.getCol()] instanceof RealCell){//checks to see if realcell object/ cell exists, aka is an number
-						next++;
+					placeHolder = ((char)(placeHolder.charAt(0) + 1)) + beginning.substring(1);
+					if(sprdsheet[loc.getRow()][loc.getCol()] instanceof RealCell){
+						//makes sure its a realcell there before adding one to counter
+						counter++;
 					}
 				}else{
 					//Move to next row if the row isnt equal
 					placeHolder = placeHolder.charAt(0) + "" + (Integer.parseInt(placeHolder.substring(1)) + 1);
 					if(sprdsheet[loc.getRow()][loc.getCol()] instanceof RealCell){
-						next++;
+						counter++;
 					}
 				}
 			}
-			return placeHolder;
 		}else if (this.formanswer.indexOf("(")>=0){
 			
+		
 	        double operand;
 	        double operand2;
 	        double answer = Double.parseDouble(fracEquationHolder[0]);
