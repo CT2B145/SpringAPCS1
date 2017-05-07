@@ -55,12 +55,8 @@ public String abbreviatedCellText() {
 	      double operand2;
 	      double answer;
 		if (removepart.toUpperCase().indexOf("SUM")>=0){ //filters out SUM
-//			String removepart1 = this.formanswer.substring(2,this.formanswer.length()-2);
-//			return sum(removepart)+"";
 			return sum(fracEquationHolder[1])+"";
 		}else if (removepart.toUpperCase().indexOf("AVG")>=0) { //filters out AVG
-//			String removepart1 = this.formanswer.substring(2,this.formanswer.length()-2);
-//			return sum(removepart)+"";
 			return avg(fracEquationHolder[1])+"";
 		}else if (fracEquationHolder[0].substring(0,1).matches("[a-zA-Z]+")) { // um, using the famous Stackoverflow method
 			// handles anything that has letter in one request
