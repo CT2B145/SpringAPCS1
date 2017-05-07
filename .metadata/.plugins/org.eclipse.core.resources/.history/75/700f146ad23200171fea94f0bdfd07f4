@@ -1,0 +1,76 @@
+package textExcel;
+
+public class FormulaCell extends RealCell{
+	private String formanswer;
+	//private String[] fractionEquationHolder;
+	private Spreadsheet sprdsheet;	//saves array from spreadsheet to access information
+	// Constructor for the FormulaCell class
+	public FormulaCell (String enteredForm, Spreadsheet emptycell){
+		super(enteredForm);							//constructor to fill super's String field (accesses by fullCellText)
+		this.formanswer = enteredForm;		
+		sprdsheet = emptycell;
+	}
+	public double getDoubleValue (){ // truncates it
+		String removepart = this.formanswer.substring(2,this.formanswer.length()-2);
+		 String[] fracEquationHolder = removepart.split(" ",removepart.length()); // holds the fractions and operator
+	        String operators = "";
+//		if(this.formanswer.length() == 0){
+//			return 0;
+//		} else if(this.formanswer.indexOf("SUM")>= 0){
+//			String[] cellSep = removepart.split("-");
+//			double sum = 0;
+//			char colStart = cellSep[0].charAt(0);
+//			char colEnd = cellSep[1].charAt(0);
+//			int rowStart = Integer.parseInt(cellSep[0].substring(1));
+//			int rowEnd = Integer.parseInt(cellSep[1].substring(1));
+//			for (char i = colStart; i < colEnd; i++) {
+//				for (int j = rowStart; j < rowEnd; j++) {
+//					SpreadsheetLocation gridLoc = new SpreadsheetLocation(i + j + "");
+//					sum += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+//				}
+//			}
+//			return sum;
+//		} else if(this.formanswer.indexOf("AVG")>= 0){
+//			return 0;
+//		}else{ // if there is no sum or avg, just do the regular caluclation
+//			
+	        double operand;
+	        double operand2;
+	        double answer = Double.parseDouble(fracEquationHolder[0]);
+
+	        for(int i =0; i <= (fracEquationHolder.length-2); i+=2){
+	            operators = fracEquationHolder[i+1];
+	            operand = Double.parseDouble(fracEquationHolder[i]);
+	            operand2 = Double.parseDouble(fracEquationHolder[i+2]);
+	            if(operators.indexOf("+")>=0){
+	                answer += operand2;
+	            }else if(operators.indexOf("-")>=0){
+	                answer -= operand2;
+	            }else if(operators.indexOf("*")>=0){
+	                answer *=  operand2;
+	            }else if(operators.indexOf("/")>=0){
+	                answer /=   operand2;
+	            }else{
+	                return answer;
+	        }
+	      
+	        }}
+//	            return 0;
+//		}// OUT OF THE MAIN IF
+//	}
+//		return 0;
+//	}
+
+	@Override
+public String abbreviatedCellText() {
+		
+		return super.abbreviatedCellText();
+	}
+
+	@Override
+	public String fullCellText() {
+		return super.fullCellText();
+	}
+	
+	}
+	

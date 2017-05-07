@@ -42,7 +42,7 @@ public class Spreadsheet implements Grid {
 					// Handles formula cells
 				} else if (inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length() - 1) == ')') {
 					//emptycell[col][row]= new FormulaCell(inputcommand[2].substring(2, inputcommand[2].length()-2));	
-					emptycell[col][row]= new FormulaCell(inputcommand[2], emptycell);	
+					emptycell[col][row]= new FormulaCell(inputcommand[2], this);	
 
 					// Processes ValueCell (any decimal number)
 				} else if (inputcommand[2].indexOf(".") > 0) {

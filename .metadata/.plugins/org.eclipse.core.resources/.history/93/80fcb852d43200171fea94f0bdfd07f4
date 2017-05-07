@@ -1,0 +1,105 @@
+package textExcel;
+
+public class FormulaCell extends RealCell{
+	private String formanswer;
+	//private String[] fractionEquationHolder;
+	private Spreadsheet sprdsheet;	//saves array from spreadsheet to access information
+	// Constructor for the FormulaCell class
+	public FormulaCell (String enteredForm, Spreadsheet emptycell){
+		super(enteredForm);							//constructor to fill super's String field (accesses by fullCellText)
+		this.formanswer = enteredForm;		
+		sprdsheet = emptycell;
+	}
+	@Override
+	public double getDoubleValue() {
+		return Double.parseDouble(this.formanswer.substring(0, this.formanswer.length()-1))/100;
+
+	}
+	
+	public double sum(String range) {
+		String[] cellSep = range.split("-");
+		double sum = 0;
+		char colStart = cellSep[0].charAt(0);
+		char colEnd = cellSep[1].charAt(0);
+		int rowStart = Integer.parseInt(cellSep[0].substring(1));
+		int rowEnd = Integer.parseInt(cellSep[1].substring(1));
+		for (char i = colStart; i < colEnd; i++) {
+			for (int j = rowStart; j < rowEnd; j++) {
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i + j + "");
+				sum += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+			}
+		}
+		return sum;
+	}
+	
+	public double avg(String range) {
+		String[] cellSep = range.split("-");
+		int count = 0;
+		double sum = 0;
+		char colStart = cellSep[0].charAt(0);
+		char colEnd = cellSep[1].charAt(0);
+		int rowStart = Integer.parseInt(cellSep[0].substring(1));
+		int rowEnd = Integer.parseInt(cellSep[1].substring(1));
+		for (char i = colStart; i < colEnd; i++) {
+			for (int j = rowStart; j < rowEnd; j++) {
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i + j + "");
+				sum += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+				count++;
+			}
+		}
+		return sum / count;
+	}
+
+	@Override
+public String abbreviatedCellText() {
+		String formula = fullCellText().substring(2, fullCellText().length() - 2);
+		String[] formulaDiv = formula.split(" ");
+		double result;
+		if (formulaDiv[0].toLowerCase().equals("sum")) {
+			return sum(formulaDiv[1])+"";
+		} else if (formulaDiv[0].toLowerCase().equals("avg")) {
+			return avg(formulaDiv[1])+"";
+		}
+		if (formulaDiv[0].length() < 4 && formulaDiv[0].substring(0,1).matches("[a-zA-Z]+")) {
+			SpreadsheetLocation gridLoc = new SpreadsheetLocation(formulaDiv[0]);
+			result = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+		} else {
+			result = Double.parseDouble(formulaDiv[0]);
+		}
+		for (int i = 2; i < formulaDiv.length; i+=2) {
+			if (formulaDiv[i].length() < 4 && formulaDiv[i].substring(0,1).matches("[a-zA-Z]+")) {
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(formulaDiv[i]);
+				if (formulaDiv[i - 1].equals("+")) {
+					result += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+				} else if (formulaDiv[i - 1].equals("-")) {
+					result -= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+				} else if (formulaDiv[i - 1].equals("/")) {
+					result /= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+				} else if (formulaDiv[i - 1].equals("*")) {
+					result *= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+				} else {
+					throw new IllegalArgumentException("Please enter a valid operator");
+				}
+			} else {
+				if (formulaDiv[i - 1].equals("+")) {
+					result += Double.parseDouble(formulaDiv[i]);
+				} else if (formulaDiv[i - 1].equals("-")) {
+					result -= Double.parseDouble(formulaDiv[i]);
+				} else if (formulaDiv[i - 1].equals("/")) {
+					result /= Double.parseDouble(formulaDiv[i]);
+				} else if (formulaDiv[i - 1].equals("*")) {
+					result *= Double.parseDouble(formulaDiv[i]);
+				} else {
+					throw new IllegalArgumentException("Please enter a valid operator");
+				}
+			}
+		}
+		return result+"";
+	}
+	@Override
+	public String fullCellText() {
+		return super.fullCellText();
+	}
+	
+	}
+	
