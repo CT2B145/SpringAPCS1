@@ -7,6 +7,7 @@ public class FormulaCell extends RealCell{
 	
 	// Constructor for the FormulaCell class
 	public FormulaCell (String enteredForm, Spreadsheet emptycell){
+		// TODO divided between Cell [][] or Spreadsheet object. Everytime I try Cell[][] objects, getDoubleValue method fails to exist.
 		super(enteredForm);							//constructor to fill super's String field (accesses by fullCellText)
 		this.formanswer = enteredForm;		
 		sprdsheet = emptycell;
@@ -15,37 +16,42 @@ public class FormulaCell extends RealCell{
 	public double sum(String total) { // adds the cells in the when SUM is requested
 		String[] cellParts = total.split("-");
 		double sum = 0;
-		int rowStart = Integer.parseInt(cellParts[0].substring(1));
+		int rowBeg = Integer.parseInt(cellParts[0].substring(1));//numbers
 		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
-		char colStart = cellParts[0].charAt(0);
+		char colBeg = cellParts[0].charAt(0); // letters
 		char colEnd = cellParts[1].charAt(0);
-		for (char i = colStart; i < colEnd; i++) {
-			for (int j = rowStart; j < rowEnd; j++) {
+		for (char i = colBeg; i < colEnd; i++) {
+			for (int j = rowBeg; j < rowEnd; j++) {
 				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i + j + "");
 				sum += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-			}
 		}
+		
+	} // TODO Similiar to the issue below.
 		return sum;
 	}
 	
-	public double avg(String total) { // figures out the AVG of the lot
+	public double avg(String total) { // figures out the average of the lot
 		String[] cellParts = total.split("-");
 		int next = 0;
 		double avgTotal = 0;
-		int rowStart = Integer.parseInt(cellParts[0].substring(1));
+		String hold;
+		int rowBeg = Integer.parseInt(cellParts[0].substring(1)); //numbers
 		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
-		char colStart = cellParts[0].charAt(0);
-		char colEnd = cellParts[1].charAt(0);
-		for (char i = colStart; i < colEnd; i++) {
-			for (int j = rowStart; j < rowEnd; j++) {
-				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i + j + "");
-				avgTotal += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+		char colBeg = cellParts[0].charAt(0);// letters
+	//	char colEnd = cellParts[1].charAt(0);
+		char i = colBeg;
+		//if(colBeg == colEnd){
+			for (int j = rowBeg; j < rowEnd; j++) {
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i+j+"");
+				hold =  ((RealCell) sprdsheet.getCell(gridLoc)).fullCellText();
+				avgTotal = Double.parseDouble(hold);
 				next++;
-			}
+			//	TODO Here is the problem. next is not incrementing, nor is avgTotal recieving any data
+				// TODO both are seeming stuck at 0.0
 		}
-		return avgTotal/next;
+	//}
+		return avgTotal/next;	
 	}
-
 	@Override
 public String abbreviatedCellText() {
 
@@ -71,27 +77,30 @@ public String abbreviatedCellText() {
 		}
 		for (int i = 2; i < fracEquationHolder.length; i+=2) {
 			if (fracEquationHolder[i].length() < 4 && fracEquationHolder[i].substring(0,1).matches("[a-zA-Z]+")) {
+				// TODO Broken, not sure why. 
 				SpreadsheetLocation gridLoc = new SpreadsheetLocation(fracEquationHolder[i]);
+				String holster = "";
+				holster = ((RealCell) sprdsheet.getCell(gridLoc)).fullCellText();
 				if (fracEquationHolder[i-1].equals("+")) {
-					answer += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer += Double.parseDouble(holster);
 				}else if(fracEquationHolder[i-1].equals("-")) {
-					answer -= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer -= Double.parseDouble(holster);
 				}else if(fracEquationHolder[i-1].equals("/")) {
-					answer /= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer /=  Double.parseDouble(holster);
 				}else if(fracEquationHolder[i-1].equals("*")) {
-					answer *= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer *=  Double.parseDouble(holster);
 				}else{
 					throw new IllegalArgumentException("Error, operator does not exist" );
 				}
-			}else{
+			}else{ // TODO Checkpoint 1B is stated here. This else statement works perfectly fine. 
 				if (fracEquationHolder[i-1].equals("+")) {
-					answer  += Double.parseDouble(fracEquationHolder[i]);
+					answer += Double.parseDouble(fracEquationHolder[i]);
 				}else if(fracEquationHolder[i-1].equals("-")) {
-					answer  -= Double.parseDouble(fracEquationHolder[i]);
+					answer -= Double.parseDouble(fracEquationHolder[i]);
 				}else if(fracEquationHolder[i-1].equals("/")) {
-					answer  /= Double.parseDouble(fracEquationHolder[i]);
+					answer /= Double.parseDouble(fracEquationHolder[i]);
 				}else if (fracEquationHolder[i-1].equals("*")) {
-					answer  *= Double.parseDouble(fracEquationHolder[i]);
+					answer *= Double.parseDouble(fracEquationHolder[i]);
 				}else {
 					throw new IllegalArgumentException("ERro, operator does not exist");
 				}
