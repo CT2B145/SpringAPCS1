@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="colBeg" key="selection"/>
+		<item value="breadsheet" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="emptycell2"/>
+			<item value="grid"/>
+			<item value="formula"/>
 			<item value="colStart"/>
 			<item value="rowStart"/>
 			<item value="range"/>
 			<item value="count"/>
 			<item value="} else"/>
-			<item value="i - 1"/>
-			<item value="cellSep"/>
-			<item value="formulaDiv"/>
 		</list>
 		<list key="replacehistory">
+			<item value="breadsheet"/>
+			<item value="emptycell2"/>
+			<item value="fracEquationHolder"/>
 			<item value="colBeg"/>
 			<item value="rowBeg"/>
 			<item value="total"/>
 			<item value="next"/>
 			<item value="}else"/>
-			<item value="i-1"/>
-			<item value="cellParts"/>
-			<item value="fracEquationHolder"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
