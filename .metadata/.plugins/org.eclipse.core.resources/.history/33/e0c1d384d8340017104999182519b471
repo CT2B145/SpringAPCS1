@@ -16,17 +16,12 @@ public class FormulaCell extends RealCell{
 	}
 
 	public double sum(String total) { // adds the cells in the when SUM is requested
-		String[] cellParts = total.split("-");
+		String[] cellParts = total.toUpperCase().split("-");
 		double sum = 0;
 		int rowBeg = Integer.parseInt(cellParts[0].substring(1));//numbers
 		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
-		char colBeg = cellParts[0].toUpperCase().charAt(0); // letters
-		char colEnd = cellParts[1].toUpperCase().charAt(0);
-//		if( colBeg == colEnd && rowBeg == rowEnd){
-//			SpreadsheetLocation gridLoc = new SpreadsheetLocation(colBeg+rowBeg+"");
-//			sum = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-//			return sum;
-//		}
+		char colBeg = cellParts[0].charAt(0); // letters
+		char colEnd = cellParts[1].charAt(0);
 		for (char i = colBeg; i < colEnd; i++) {
 			for (int j = rowBeg; j < rowEnd; j++) {
 				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i + j + "");
@@ -45,13 +40,8 @@ public class FormulaCell extends RealCell{
 		String hold;
 		int rowBeg = Integer.parseInt(cellParts[0].substring(1)); //numbers
 		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
-		char colBeg = cellParts[0].toUpperCase().charAt(0);// letters
-		char colEnd = cellParts[1].toUpperCase().charAt(0);
-//		if( colBeg == colEnd && rowBeg == rowEnd){
-//			SpreadsheetLocation gridLoc = new SpreadsheetLocation(colBeg+rowBeg+"");
-//			avgTotal = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-//			return avgTotal/1;
-//		}
+		char colBeg = cellParts[0].charAt(0);// letters
+		char colEnd = cellParts[1].charAt(0);
 		char i = colBeg;
 		for( i = colBeg; i < colEnd; i++){
 			for (int j = rowBeg; j < rowEnd; j++) {

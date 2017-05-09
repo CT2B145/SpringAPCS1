@@ -22,11 +22,11 @@ public class FormulaCell extends RealCell{
 		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
 		char colBeg = cellParts[0].toUpperCase().charAt(0); // letters
 		char colEnd = cellParts[1].toUpperCase().charAt(0);
-//		if( colBeg == colEnd && rowBeg == rowEnd){
-//			SpreadsheetLocation gridLoc = new SpreadsheetLocation(colBeg+rowBeg+"");
-//			sum = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-//			return sum;
-//		}
+		if( colBeg == colEnd && rowBeg == rowEnd){
+			SpreadsheetLocation gridLoc = new SpreadsheetLocation(colBeg+rowBeg+"");
+			sum = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+			return sum;
+		}
 		for (char i = colBeg; i < colEnd; i++) {
 			for (int j = rowBeg; j < rowEnd; j++) {
 				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i + j + "");
@@ -47,11 +47,11 @@ public class FormulaCell extends RealCell{
 		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
 		char colBeg = cellParts[0].toUpperCase().charAt(0);// letters
 		char colEnd = cellParts[1].toUpperCase().charAt(0);
-//		if( colBeg == colEnd && rowBeg == rowEnd){
-//			SpreadsheetLocation gridLoc = new SpreadsheetLocation(colBeg+rowBeg+"");
-//			avgTotal = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-//			return avgTotal/1;
-//		}
+		if( colBeg == colEnd && rowBeg == rowEnd){
+			SpreadsheetLocation gridLoc = new SpreadsheetLocation(colBeg+rowBeg+"");
+			avgTotal = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+			return avgTotal/1;
+		}
 		char i = colBeg;
 		for( i = colBeg; i < colEnd; i++){
 			for (int j = rowBeg; j < rowEnd; j++) {
