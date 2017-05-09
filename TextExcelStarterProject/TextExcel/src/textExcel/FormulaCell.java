@@ -41,17 +41,17 @@ public class FormulaCell extends RealCell{
 		int rowBeg = Integer.parseInt(cellParts[0].substring(1)); //numbers
 		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
 		char colBeg = cellParts[0].charAt(0);// letters
-	//	char colEnd = cellParts[1].charAt(0);
+		char colEnd = cellParts[1].charAt(0);
 		char i = colBeg;
-		//if(colBeg == colEnd){
+		for( i = colBeg; i < colEnd; i++){
 			for (int j = rowBeg; j < rowEnd; j++) {
 				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i+j+"");
-				avgTotal += ((RealCell) breadsheet[i][j]).getDoubleValue();
+				avgTotal += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 				next++;
 			//	TODO Here is the problem. next is not incrementing, nor is avgTotal recieving any data
 				// TODO both are seeming stuck at 0.0
+			}
 		}
-	//}
 		return avgTotal/next;	
 	}
 //	public double calculate (String operator, double operand, double operand2){
@@ -77,13 +77,14 @@ public class FormulaCell extends RealCell{
 		  double operand;
 	      double operand2;
 	      double answer;
-		if (removepart.toUpperCase().indexOf("SUM")>=0){ //filters out SUM
+		if (fracEquationHolder[0].toUpperCase().indexOf("SUM")>=0){ //filters out SUM
 			return sum(fracEquationHolder[1]);
-		}else if (removepart.toUpperCase().indexOf("AVG")>=0) { //filters out AVG
-			return sum(fracEquationHolder[1]);
+		}else if (fracEquationHolder[0].toUpperCase().indexOf("AVG")>=0) { //filters out AVG
+			return avg(fracEquationHolder[1]);
 		}else{
 			for (int j = 0; j < fracEquationHolder.length; j+=2) {
-				if (fracEquationHolder[j].toUpperCase().charAt(0) >= 65) {
+				
+				if (fracEquationHolder[j].substring(0,1).matches("[a-zA-Z]+")) {
 					fracEquationHolder[j] = getCellValue(fracEquationHolder[j]) + "";
 				}
 			} 
@@ -106,7 +107,7 @@ public class FormulaCell extends RealCell{
 	}
 	public double getCellValue(String cellPlace) {
 		SpreadsheetLocation gridLoc = new SpreadsheetLocation(cellPlace);
-		double cellvalue =  ((RealCell) breadsheet[gridLoc.getRow()][gridLoc.getCol()]).getDoubleValue();
+		double cellvalue =  ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 		return cellvalue;
 	}
 	

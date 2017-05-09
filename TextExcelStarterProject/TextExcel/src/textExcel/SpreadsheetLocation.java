@@ -6,7 +6,7 @@ public class SpreadsheetLocation implements Location {
 	
 	//Constructor for SpreadsheetLocation
 	public SpreadsheetLocation(String cellname) {
-    	this.name = cellname;
+    	name = cellname;
     }
 
     public int getRow() {	//gets the row from the first letter in command
