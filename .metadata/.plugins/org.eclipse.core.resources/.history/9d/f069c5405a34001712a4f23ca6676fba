@@ -78,17 +78,17 @@ public class FormulaCell extends RealCell{
 		for (int i = 2; i < fracEquationHolder.length; i+=2) {
 			if (fracEquationHolder[i].length() < 4 && fracEquationHolder[i].substring(0,1).matches("[a-zA-Z]+")) {
 				// TODO Broken, not sure why. 
-				SpreadsheetLocation gridLoc = new SpreadsheetLocation(fracEquationHolder[i].toUpperCase());
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(fracEquationHolder[i]);
 				//String holster = "";
 				double holster = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 				if (fracEquationHolder[i-1].equals("+")) {
-					answer += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer += ((RealCell) breadsheet[gridLoc.getRow()][gridLoc.getCol()]).getDoubleValue();
 				}else if(fracEquationHolder[i-1].equals("-")) {
-					answer -= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer -=  ((RealCell) breadsheet[gridLoc.getRow()][gridLoc.getCol()]).getDoubleValue();
 				}else if(fracEquationHolder[i-1].equals("/")) {
-					answer /= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer /=  ((RealCell) breadsheet[gridLoc.getRow()][gridLoc.getCol()]).getDoubleValue();
 				}else if(fracEquationHolder[i-1].equals("*")) {
-					answer *= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer *=  ((RealCell) breadsheet[gridLoc.getRow()][gridLoc.getCol()]).getDoubleValue();
 				}else{
 					throw new IllegalArgumentException("Error, operator does not exist" );
 				}
@@ -114,7 +114,7 @@ public class FormulaCell extends RealCell{
 	@Override
 	public String abbreviatedCellText() {
 //return super.abbreviatedCellText();
-		String answer1 = getDoubleValue() +"";
+		String answer1 = answer  +"";
         int cellValueLength = answer1.length();
 		if (cellValueLength < 10){
 			while (answer1.length() < 10){

@@ -71,24 +71,24 @@ public class FormulaCell extends RealCell{
 		}else if (fracEquationHolder[0].substring(0,1).matches("[a-zA-Z]+")) { // um, using the famous Stackoverflow method
 			// handles anything that has letter in one request
 			SpreadsheetLocation gridLoc = new SpreadsheetLocation(fracEquationHolder[0]);
-			answer = ((RealCell) breadsheet[gridLoc.getRow()][gridLoc.getCol()]).getDoubleValue();
+			answer = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 		}else{
 			answer = Double.parseDouble(fracEquationHolder[0]);
 		}
 		for (int i = 2; i < fracEquationHolder.length; i+=2) {
 			if (fracEquationHolder[i].length() < 4 && fracEquationHolder[i].substring(0,1).matches("[a-zA-Z]+")) {
 				// TODO Broken, not sure why. 
-				SpreadsheetLocation gridLoc = new SpreadsheetLocation(fracEquationHolder[i].toUpperCase());
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(fracEquationHolder[i]);
 				//String holster = "";
 				double holster = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 				if (fracEquationHolder[i-1].equals("+")) {
 					answer += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 				}else if(fracEquationHolder[i-1].equals("-")) {
-					answer -= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer -=  ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 				}else if(fracEquationHolder[i-1].equals("/")) {
-					answer /= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer /=   ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 				}else if(fracEquationHolder[i-1].equals("*")) {
-					answer *= ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+					answer *=   ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 				}else{
 					throw new IllegalArgumentException("Error, operator does not exist" );
 				}
@@ -114,7 +114,7 @@ public class FormulaCell extends RealCell{
 	@Override
 	public String abbreviatedCellText() {
 //return super.abbreviatedCellText();
-		String answer1 = getDoubleValue() +"";
+		String answer1 = answer  +"";
         int cellValueLength = answer1.length();
 		if (cellValueLength < 10){
 			while (answer1.length() < 10){
@@ -128,7 +128,7 @@ public class FormulaCell extends RealCell{
 			return answer1;
 		}
 	}
-
+	}
 	@Override
 	public String fullCellText() {
 		return super.fullCellText();

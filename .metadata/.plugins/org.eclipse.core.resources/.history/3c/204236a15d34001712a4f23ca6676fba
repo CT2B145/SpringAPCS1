@@ -1,10 +1,10 @@
 package textExcel;
 
 public class RealCell implements Cell {
-private String cellText;
+protected String cellText;
 	
 	public RealCell(String text){
-		cellText=text; 
+		this.cellText=text; 
 	}
 	@Override
 	public String abbreviatedCellText() { //adds the number of spaces needed to keep text aligned
@@ -28,7 +28,7 @@ private String cellText;
 		return cellText ;
 	}
 	public double getDoubleValue() { //extracts the numbers from the cell into a double format
-		double num = Double.parseDouble(cellText);
+		double num = Double.parseDouble(this.cellText);
 		return num;
 	}
 }

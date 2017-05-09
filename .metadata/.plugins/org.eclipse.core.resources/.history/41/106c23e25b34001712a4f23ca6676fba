@@ -78,7 +78,7 @@ public class FormulaCell extends RealCell{
 		for (int i = 2; i < fracEquationHolder.length; i+=2) {
 			if (fracEquationHolder[i].length() < 4 && fracEquationHolder[i].substring(0,1).matches("[a-zA-Z]+")) {
 				// TODO Broken, not sure why. 
-				SpreadsheetLocation gridLoc = new SpreadsheetLocation(fracEquationHolder[i].toUpperCase());
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(fracEquationHolder[i]);
 				//String holster = "";
 				double holster = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 				if (fracEquationHolder[i-1].equals("+")) {
