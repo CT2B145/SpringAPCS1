@@ -18,6 +18,7 @@ public class Spreadsheet implements Grid {
 	@Override
 	// Method that takes in the command and sends it to the proper class to be processed. 
 	public String processCommand(String command) {
+//		command = command.trim();
      if (command.equals("")) {
    		return "";
     	}

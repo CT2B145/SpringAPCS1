@@ -4,8 +4,7 @@ public class RealCell implements Cell {
 
 	private String str; //string value stored in realcell
 	
-	//Constructor for RealCell class
-	public RealCell(String str) { 
+	public RealCell(String str) { //constructor
 		this.str = str;
 	}
 	

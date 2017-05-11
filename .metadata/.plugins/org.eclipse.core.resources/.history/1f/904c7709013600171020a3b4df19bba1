@@ -3,8 +3,6 @@ package textExcel;
 public class PercentCell extends RealCell implements Cell{
 
 	private String input;
-	//Constructor for PercentCell class
-
 	public PercentCell (String test){
 		super (test);
 		this.input = test;

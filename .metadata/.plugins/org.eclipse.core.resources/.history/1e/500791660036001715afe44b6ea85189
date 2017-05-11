@@ -4,11 +4,12 @@ public class FormulaCell extends RealCell{
 	private String formanswer;
 	//private String[] fractionEquationHolder;
 	private Spreadsheet sprdsheet;	//saves array from spreadsheet to access information from Spreadsheet
-	private Cell[][] breadsheet; // previously used, but did not work
+	private Cell[][] breadsheet; // previous used
 
 	// Constructor for the FormulaCell class
 	public FormulaCell (String enteredForm, Spreadsheet emptycell, Cell[][] breadsheet){
-		super(enteredForm);        //constructor to fill super's String field (accesses by fullCellText)
+		// TODO divided between Cell [][] or Spreadsheet object. Everytime I try Cell[][] objects, getDoubleValue method fails to exist.
+		super(enteredForm);							//constructor to fill super's String field (accesses by fullCellText)
 		formanswer = enteredForm;		
 		sprdsheet = emptycell;
 		this.breadsheet = breadsheet;
@@ -79,7 +80,7 @@ public class FormulaCell extends RealCell{
 					throw new IllegalArgumentException("ERro, operator does not exist");
 				}
 			}
-		}
+		}// for the needed spaces
 		return answer;
 	}
 	public double getCellValue(String cellPlace) { //finds the location and gets the double value out of that location
@@ -87,8 +88,11 @@ public class FormulaCell extends RealCell{
 		double cellvalue =  ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 		return cellvalue;
 	}
+	
+	
 	@Override
-	public String abbreviatedCellText() { // for the needed spaces
+	public String abbreviatedCellText() {
+//return super.abbreviatedCellText();
 		String answer1 = getDoubleValue() +"";
         int cellValueLength = answer1.length();
 		if (cellValueLength < 10){
@@ -105,7 +109,7 @@ public class FormulaCell extends RealCell{
 	}
 
 	@Override
-	public String fullCellText() { // returns the full cell only and nothing else
+	public String fullCellText() {
 		return super.fullCellText();
 	}
 }
