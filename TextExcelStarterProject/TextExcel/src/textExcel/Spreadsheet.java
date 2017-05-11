@@ -41,8 +41,8 @@ public class Spreadsheet implements Grid {
 					emptycell[col][row]= new PercentCell(inputcommand[2]);
 					// Handles formula cells
 				} else if (inputcommand[2].charAt(0) == '(' && inputcommand[2].charAt(inputcommand[2].length() - 1) == ')') {
-					//emptycell[col][row]= new FormulaCell(inputcommand[2].substring(2, inputcommand[2].length()-2));	
-					emptycell[col][row]= new FormulaCell(inputcommand[2],this, emptycell);	
+					// Processes FormulaCell ( the two plus two and the A2 plus A2)
+					emptycell[col][row]= new FormulaCell(inputcommand[2],this, emptycell);// Another practical example of using “this” is when you need to pass your current object to another method. Example:
 					// Processes ValueCell (any decimal number)
 				} else if (inputcommand[2].indexOf(".") > 0) {
 					emptycell[col][row] = new ValueCell(inputcommand[2]);

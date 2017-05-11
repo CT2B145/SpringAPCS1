@@ -1,34 +1,36 @@
 package textExcel;
 
 public class RealCell implements Cell {
-private String cellText;
-	
-	public RealCell(String text){
-		cellText=text; 
-	}
-	@Override
-	public String abbreviatedCellText() { //adds the number of spaces needed to keep text aligned
-		String returnStr = cellText;
-		int cellValueLength = cellText.length();
-		if (cellValueLength < 10){
-			while (returnStr.length() < 10){
-				returnStr += " ";
-			}
-			return returnStr;
-		} else if (cellValueLength > 10){
-			returnStr = returnStr.substring(0, 10);
-			return returnStr;
-		}else{
-			return cellText;
-		}
-	}
 
-	@Override
-	public String fullCellText() { //used for GetCell only (no quotes needed, since this is a superclass)
-		return cellText ;
+	private String str; //string value stored in realcell
+	
+	public RealCell(String str) { //constructor
+		this.str = str;
 	}
-	public double getDoubleValue() { //extracts the numbers from the cell into a double format
-		double num = Double.parseDouble(cellText);
+	
+	public String abbreviatedCellText() { //returns max 10 characters of fullCellText()
+		String answer1 = getDoubleValue() +"";
+        int cellValueLength = answer1.length();
+		if (cellValueLength < 10){
+			while (answer1.length() < 10){
+				answer1 += " ";
+			}
+			return answer1;
+		}else if (cellValueLength > 10){
+			answer1 = answer1.substring(0, 10);
+			return answer1;
+		}else{
+			return answer1;
+		}
+	
+	}
+	
+	public String fullCellText() { //returns full and actual value of cell
+		return this.str;
+	}
+	
+	public double getDoubleValue() { //converts str into double value
+		double num = Double.parseDouble(this.str);
 		return num;
-	}
+	}	
 }

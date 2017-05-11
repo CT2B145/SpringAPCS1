@@ -4,7 +4,7 @@ public class FormulaCell extends RealCell{
 	private String formanswer;
 	//private String[] fractionEquationHolder;
 	private Spreadsheet sprdsheet;	//saves array from spreadsheet to access information from Spreadsheet
-	private Cell[][] breadsheet;
+	private Cell[][] breadsheet; // previous used
 
 	// Constructor for the FormulaCell class
 	public FormulaCell (String enteredForm, Spreadsheet emptycell, Cell[][] breadsheet){
@@ -18,68 +18,37 @@ public class FormulaCell extends RealCell{
 	public double sum(String total) { // adds the cells in the when SUM is requested
 		String[] cellParts = total.split("-");
 		double sum = 0;
-		int rowBeg = Integer.parseInt(cellParts[0].substring(1));//numbers
-		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
-		char colBeg = cellParts[0].toUpperCase().charAt(0); // letters
-		char colEnd = cellParts[1].toUpperCase().charAt(0);
-//		if( colBeg == colEnd && rowBeg == rowEnd){
-//			SpreadsheetLocation gridLoc = new SpreadsheetLocation(colBeg+rowBeg+"");
-//			sum = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-//			return sum;
-//		}
-		for (char i = colBeg; i < colEnd; i++) {
-			for (int j = rowBeg; j < rowEnd; j++) {
-				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i + j + "");
-				//sum += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-				sum += ((RealCell) breadsheet[i][j]).getDoubleValue();
-		}
-		
-	} // TODO Similiar to the issue below.
+		int rowBeg = Integer.parseInt(cellParts[0].substring(1));
+		int rowEnd = Integer.parseInt(cellParts[1].substring(1)); //numbers
+		char colBeg = (cellParts[0].toUpperCase()).charAt(0); //letters
+		char colEnd = (cellParts[1].toUpperCase()).charAt(0);
+		for (char i = colBeg; i <= colEnd; i++) {
+			for (int j = rowBeg; j <= rowEnd; j++) {
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i+""+j);
+				sum += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
+				//sum += ((RealCell) breadsheet[i][j]).getDoubleValue();
+		}		
+	} 
 		return sum;
 	}
-	
 	public double avg(String total) { // figures out the average of the lot
-		String[] cellParts = total.toUpperCase().split("-");
-		int next = 0;
+		String[] cellParts = total.split("-");
 		double avgTotal = 0;
-		String hold;
+		double next = 0;
 		int rowBeg = Integer.parseInt(cellParts[0].substring(1)); //numbers
 		int rowEnd = Integer.parseInt(cellParts[1].substring(1));
-		char colBeg = cellParts[0].toUpperCase().charAt(0);// letters
-		char colEnd = cellParts[1].toUpperCase().charAt(0);
-//		if( colBeg == colEnd && rowBeg == rowEnd){
-//			SpreadsheetLocation gridLoc = new SpreadsheetLocation(colBeg+rowBeg+"");
-//			avgTotal = ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-//			return avgTotal/1;
-//		}
-		char i = colBeg;
-		for( i = colBeg; i < colEnd; i++){
-			for (int j = rowBeg; j < rowEnd; j++) {
-				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i+j+"");
+		char colBeg = (cellParts[0].toUpperCase()).charAt(0); //letters
+		char colEnd = (cellParts[1].toUpperCase()).charAt(0);
+		for (char i = colBeg; i <= colEnd; i++) {
+			for (int j = rowBeg; j <= rowEnd; j++) {
+				SpreadsheetLocation gridLoc = new SpreadsheetLocation(i+""+j);
 				avgTotal += ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
-				next++;
-			//	TODO Here is the problem. next is not incrementing, nor is avgTotal recieving any data
-				// TODO both are seeming stuck at 0.0
+				next++;//next increments the amount of cells in the range
 			}
 		}
-		return avgTotal/next;	
+		return avgTotal/next; 
 	}
-//	public double calculate (String operator, double operand, double operand2){
-////	            operand = Double.parseDouble(opera);
-////	            operand2 = Double.parseDouble(b);
-//	            if(operator.indexOf("+")>=0){
-//	                answer += operand2;
-//	            }else if(operator.indexOf("-")>=0){
-//	                answer -= operand2;
-//	            }else if(operator.indexOf("*")>=0){
-//	                answer *=  operand2;
-//	            }else if(operator.indexOf("/")>=0){
-//	                answer /=   operand2;
-//	            }else{
-//	                return answer;
-//			}	                return answer;
-//
-//	}
+
 	@Override
 	public double getDoubleValue() {
 		String removepart = formanswer.substring(2,formanswer.length()-2);
@@ -91,13 +60,12 @@ public class FormulaCell extends RealCell{
 			return sum(fracEquationHolder[1]);
 		}else if (fracEquationHolder[0].toUpperCase().indexOf("AVG")>=0) { //filters out AVG
 			return avg(fracEquationHolder[1]);
-		}else{
+		}else{ //anything that doesn't have SUM or AVG
 			for (int j = 0; j < fracEquationHolder.length; j+=2) {
-				
 				if (fracEquationHolder[j].substring(0,1).matches("[a-zA-Z]+")) {
 					fracEquationHolder[j] = getCellValue(fracEquationHolder[j]) + "";
 				}
-			} 
+			} // this where the math starts
 			answer = Double.parseDouble(fracEquationHolder[0]);
 			for (int i = 1; i < fracEquationHolder.length; i+=2) {
 				if (fracEquationHolder[i].equals("+")) {
@@ -115,7 +83,7 @@ public class FormulaCell extends RealCell{
 		}// for the needed spaces
 		return answer;
 	}
-	public double getCellValue(String cellPlace) {
+	public double getCellValue(String cellPlace) { //finds the location and gets the double value out of that location
 		SpreadsheetLocation gridLoc = new SpreadsheetLocation(cellPlace);
 		double cellvalue =  ((RealCell) sprdsheet.getCell(gridLoc)).getDoubleValue();
 		return cellvalue;
